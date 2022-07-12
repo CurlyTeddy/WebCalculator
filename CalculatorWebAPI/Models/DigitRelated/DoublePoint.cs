@@ -21,10 +21,10 @@
         /// <summary>
         /// The method adds a dot to current value and displayed equation
         /// </summary>
-        public void Execute()
+        public void Execute(Answer answer)
         {
-            GlobalVariables.CurrentEquation += Content;
-            GlobalVariables.CurrentValue += Content;
+            answer.CurrentEquation += Content;
+            answer.CurrentValue += Content;
         }
     }
 }

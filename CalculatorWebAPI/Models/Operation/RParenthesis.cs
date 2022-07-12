@@ -21,11 +21,11 @@
         /// <summary>
         /// 
         /// </summary>
-        public void Execute()
+        public void Execute(Answer answer)
         {
-            GlobalVariables.AllTerm.Add(GlobalVariables.CurrentValue);
-            GlobalVariables.UpdateWindow(Content);
-            GlobalVariables.CurrentValue = "";
+            answer.AllTerm.Add(answer.CurrentValue);
+            answer.UpdateWindow(Content);
+            answer.CurrentValue = "";
         }
     }
 }

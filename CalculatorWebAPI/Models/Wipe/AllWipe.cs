@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Controllers.Models
+﻿namespace Controllers.Models
 {
     /// <summary>
     /// The clear button class
@@ -27,11 +21,13 @@ namespace Controllers.Models
         /// <summary>
         /// The method clears the screen and background variables
         /// </summary>
-        public void Execute()
+        public void Execute(Answer answer)
         {
-            GlobalVariables.CurrentEquation = "";
-            GlobalVariables.Result = "";
-            GlobalVariables.Reset();
+            answer.CurrentEquation = "";
+            answer.PreorderEquation = "";
+            answer.PostorderEquation = "";
+            answer.Result = "";
+            answer.Reset();
         }
     }
 }

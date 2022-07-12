@@ -8,6 +8,6 @@
         /// <summary>
         /// The method template
         /// </summary>
-        void Execute();
+        void Execute(Answer identifier);
     }
 }

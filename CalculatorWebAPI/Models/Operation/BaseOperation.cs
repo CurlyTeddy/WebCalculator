@@ -9,14 +9,14 @@
         /// The method prepares for calculating result
         /// </summary>
         /// <param name="content">The argument is the symbol of the operation</param>
-        public static void SymbolWorks(string content)
+        public static void SymbolWorks(string content, Answer answer)
         {
-            if (GlobalVariables.CurrentValue != "")
+            if (answer.CurrentValue != "")
             {
-                GlobalVariables.AllTerm.Add(GlobalVariables.CurrentValue);
+                answer.AllTerm.Add(answer.CurrentValue);
             }
-            GlobalVariables.UpdateWindow(content);
-            GlobalVariables.CurrentValue = "";
+            answer.UpdateWindow(content);
+            answer.CurrentValue = "";
         }
     }
 }

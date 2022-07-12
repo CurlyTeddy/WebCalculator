@@ -22,10 +22,10 @@
         /// <summary>
         /// The methods set the current number and the equation
         /// </summary>
-        public void Execute()
+        public void Execute(Answer answer)
         {
-            GlobalVariables.CurrentValue += Content;
-            GlobalVariables.CurrentEquation = GlobalVariables.CurrentEquation.Substring(0, GlobalVariables.NextNumberStart) + GlobalVariables.CurrentValue;
+            answer.CurrentValue += Content;
+            answer.CurrentEquation = answer.CurrentEquation.Substring(0, answer.NextNumberStart) + answer.CurrentValue;
         }
 
         public static void NumberOperation(string nodeSymbol)

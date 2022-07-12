@@ -21,9 +21,9 @@
         /// <summary>
         /// 
         /// </summary>
-        public void Execute()
+        public void Execute(Answer answer)
         {
-            GlobalVariables.UpdateWindow(Content);
+            answer.UpdateWindow(Content);
         }
     }
 }

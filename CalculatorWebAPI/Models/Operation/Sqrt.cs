@@ -24,9 +24,9 @@ namespace Controllers.Models
         /// <summary>
         /// The method makes the switch to sqrt mood
         /// </summary>
-        public void Execute()
+        public void Execute(Answer answer)
         {
-            GlobalVariables.UpdateWindow(Content);
+            answer.UpdateWindow(Content);
         }
 
         /// <summary>

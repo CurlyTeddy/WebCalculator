@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using System.Web.Http;
 
 namespace Controllers.Models
@@ -28,16 +25,16 @@ namespace Controllers.Models
         /// <summary>
         /// The method deletes one digit of current value
         /// </summary>
-        public void Execute()
+        public void Execute(Answer answer)
         {
             try
             {
-                GlobalVariables.CurrentValue = GlobalVariables.CurrentValue.Remove(GlobalVariables.CurrentValue.Length - 1);
-                GlobalVariables.CurrentEquation = GlobalVariables.CurrentEquation.Remove(GlobalVariables.CurrentEquation.Length - 1);
+                answer.CurrentValue = answer.CurrentValue.Remove(answer.CurrentValue.Length - 1);
+                answer.CurrentEquation = answer.CurrentEquation.Remove(answer.CurrentEquation.Length - 1);
             }
             catch (ArgumentOutOfRangeException)
             {
-                
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
         }
     }

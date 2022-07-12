@@ -21,16 +21,16 @@
         /// <summary>
         /// The function of the button
         /// </summary>
-        public void Execute()
+        public void Execute(Answer answer)
         {
-            GlobalVariables.AllTerm.Add(GlobalVariables.CurrentValue);
-            TreeNode root = Tree.ConstructTree();
-            Tree.PreorderTraversal(root);
-            Tree.PostorderTraversal(root);
-            GlobalVariables.CurrentEquation += $"\r\n{GlobalVariables.PreorderEquation}\r\n{GlobalVariables.PostorderEquation}";
-            GlobalVariables.Result = Tree.CalculateTree(root).ToString();
+            answer.AllTerm.Add(answer.CurrentValue);
+            TreeNode root = Tree.ConstructTree(answer);
+            Tree.PreorderTraversal(root, answer);
+            Tree.PostorderTraversal(root, answer);
+            answer.CurrentEquation += $"\r\n{answer.PreorderEquation}\r\n{answer.PostorderEquation}";
+            answer.Result = Tree.CalculateTree(root).ToString();
 
-            GlobalVariables.Reset();
+            answer.Reset();
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 
 namespace Controllers.Models
@@ -18,7 +15,7 @@ namespace Controllers.Models
             subtreeHead.Push(root);
         }
 
-        public static TreeNode ConstructTree()
+        public static TreeNode ConstructTree(Answer answer)
         {
             Stack<TreeNode> subtreeHead = new Stack<TreeNode>();
             Stack<string> operators = new Stack<string>();
@@ -26,7 +23,7 @@ namespace Controllers.Models
             // The priority of "(" must be the lowest, in order not to process "(" when meets the first operator in the parenthesis
             Dictionary<string, int> priority = new Dictionary<string, int>() { { "(", 1 }, { Addition.Content, 2 }, { Substraction.Content, 2 }, { Multiplication.Content, 3 }, { Division.Content, 3 } };
 
-            foreach (string term in GlobalVariables.AllTerm)
+            foreach (string term in answer.AllTerm)
             {
                 if (term == "(" || term == Sqrt.Content)
                 {
@@ -76,28 +73,28 @@ namespace Controllers.Models
             return subtreeHead.Pop();
         }
 
-        public static void PreorderTraversal(TreeNode root)
+        public static void PreorderTraversal(TreeNode root, Answer answer)
         {
             if (root == null)
             {
                 return;
             }
 
-            GlobalVariables.PreorderEquation += root.Symbol;
-            PreorderTraversal(root.LeftChild);
-            PreorderTraversal(root.RightChild);
+            answer.PreorderEquation += root.Symbol;
+            PreorderTraversal(root.LeftChild, answer);
+            PreorderTraversal(root.RightChild, answer);
         }
 
-        public static void PostorderTraversal(TreeNode root)
+        public static void PostorderTraversal(TreeNode root, Answer answer)
         {
             if (root == null)
             {
                 return;
             }
 
-            PostorderTraversal(root.LeftChild);
-            PostorderTraversal(root.RightChild);
-            GlobalVariables.PostorderEquation += root.Symbol;
+            PostorderTraversal(root.LeftChild, answer);
+            PostorderTraversal(root.RightChild, answer);
+            answer.PostorderEquation += root.Symbol;
         }
 
         public static double CalculateTree(TreeNode root)

@@ -1,4 +1,6 @@
-﻿namespace CalculatorFront
+﻿using System.Windows.Forms;
+
+namespace CalculatorFront
 {
     partial class Calculator
     {
@@ -349,6 +351,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(484, 561);
+            FormClosing += new FormClosingEventHandler(this.CloseClick);
             this.Controls.Add(this.RightParenthesis);
             this.Controls.Add(this.LeftParenthesis);
             this.Controls.Add(this.SqrtButton);

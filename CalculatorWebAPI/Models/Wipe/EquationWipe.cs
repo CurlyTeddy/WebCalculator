@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Controllers.Models
+﻿namespace Controllers.Models
 {
     /// <summary>
     /// The class of clear entry button
@@ -26,10 +20,12 @@ namespace Controllers.Models
         /// <summary>
         /// The method represents clear entry button's function
         /// </summary>
-        public void Execute()
+        public void Execute(Answer answer)
         {
-            GlobalVariables.CurrentEquation = "";
-            GlobalVariables.Reset();
+            answer.CurrentEquation = "";
+            answer.PreorderEquation = "";
+            answer.PostorderEquation = "";
+            answer.Reset();
         }
     }
 }

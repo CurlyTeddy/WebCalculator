@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using Controllers.Models;
+using Newtonsoft.Json.Linq;
 
 namespace CalculatorWebAPI.Controllers
 {
     public class ValuesController : ApiController
     {
-        private readonly Dictionary<string, IButton> Map = new Dictionary<string, IButton>()
-        { { Addition.Content, new Addition() }, { Substraction.Content, new Substraction() }, { Multiplication.Content, new Multiplication()},
-          { Division.Content, new Division() }, { Sqrt.Content, new Sqrt() }, { LParenthesis.Content, new LParenthesis() },
-          { RParenthesis.Content, new RParenthesis() }, { DoublePoint.Content, new DoublePoint()}, { CalculateResult.Content, new CalculateResult() },
-          { AllWipe.Content, new AllWipe() }, { Backward.Content, new Backward()}, { EquationWipe.Content, new EquationWipe() } };
-
         // GET api/values
         public IEnumerable<string> Get()
         {
@@ -23,32 +14,32 @@ namespace CalculatorWebAPI.Controllers
         }
 
         // GET api/values/5
-        public string Get(string id)
+        public int Get(int id)
         {
             return id;
         }
 
         // POST api/values
-        public string[] Post([FromBody]string value)
+        public JObject Post([FromBody] JObject value)
         {
-            string[] result = new string[2];
-            if (double.TryParse(value, out double dummy))
+            string symbol = value["button"].ToString();
+            int identifier = (int)value["ID"];
+            if (!GlobalVariables.IdentifierMap.TryGetValue(identifier, out Answer target))
             {
-                new Number(value).Execute();
+                target = new Answer();
+                GlobalVariables.IdentifierMap.Add(identifier, target);
+            }
+
+            if (double.TryParse(symbol, out double dummy))
+            {
+                new Number(symbol).Execute(target);
             }
             else
             {
-                Map[value].Execute();
+                GlobalVariables.ButtonMap[symbol].Execute(target);
             }
 
-            result[0] = GlobalVariables.CurrentEquation;
-            result[1] = GlobalVariables.Result;
-            /*if (value == CalculateResult.Content)
-            {
-                return $"{GlobalVariables.CurrentEquation}@{GlobalVariables.Result}";
-            }
-            return GlobalVariables.CurrentEquation;*/
-            return result;
+            return JObject.Parse($"{{ \"CurrentEquation\": \"{target.CurrentEquation}\", \"Result\": \"{target.Result}\" }}");
         }
 
         // PUT api/values/5
@@ -59,6 +50,7 @@ namespace CalculatorWebAPI.Controllers
         // DELETE api/values/5
         public void Delete(int id)
         {
+            GlobalVariables.IdentifierMap.Remove(id);
         }
     }
 }

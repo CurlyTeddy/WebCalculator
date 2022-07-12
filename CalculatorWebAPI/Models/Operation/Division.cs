@@ -21,9 +21,9 @@
         /// <summary>
         /// The method does the work that meets the prerequisite
         /// </summary>
-        public void Execute()
+        public void Execute(Answer answer)
         {
-            SymbolWorks(Content);
+            SymbolWorks(Content, answer);
         }
     }
 }
