@@ -63,7 +63,6 @@ namespace CalculatorFront
             this.Dot.Name = "Dot";
             this.Dot.Size = new System.Drawing.Size(50, 60);
             this.Dot.TabIndex = 4;
-            this.Dot.Tag = "\".\"";
             this.Dot.Text = ".";
             this.Dot.UseVisualStyleBackColor = true;
             this.Dot.Click += new System.EventHandler(this.ButtonClick);
@@ -75,7 +74,6 @@ namespace CalculatorFront
             this.BackArrow.Name = "BackArrow";
             this.BackArrow.Size = new System.Drawing.Size(50, 60);
             this.BackArrow.TabIndex = 11;
-            this.BackArrow.Tag = "\"←\"";
             this.BackArrow.Text = "←";
             this.BackArrow.UseVisualStyleBackColor = true;
             this.BackArrow.Click += new System.EventHandler(this.ButtonClick);
@@ -87,7 +85,6 @@ namespace CalculatorFront
             this.Clear.Name = "Clear";
             this.Clear.Size = new System.Drawing.Size(50, 60);
             this.Clear.TabIndex = 12;
-            this.Clear.Tag = "\"C\"";
             this.Clear.Text = "C";
             this.Clear.UseVisualStyleBackColor = true;
             this.Clear.Click += new System.EventHandler(this.ButtonClick);
@@ -99,7 +96,6 @@ namespace CalculatorFront
             this.Divide.Name = "Divide";
             this.Divide.Size = new System.Drawing.Size(50, 60);
             this.Divide.TabIndex = 13;
-            this.Divide.Tag = "\"÷\"";
             this.Divide.Text = "÷";
             this.Divide.UseVisualStyleBackColor = true;
             this.Divide.Click += new System.EventHandler(this.ButtonClick);
@@ -112,7 +108,6 @@ namespace CalculatorFront
             this.Multiply.Name = "Multiply";
             this.Multiply.Size = new System.Drawing.Size(50, 60);
             this.Multiply.TabIndex = 14;
-            this.Multiply.Tag = "\"×\"";
             this.Multiply.Text = "×";
             this.Multiply.UseVisualStyleBackColor = true;
             this.Multiply.Click += new System.EventHandler(this.ButtonClick);
@@ -124,7 +119,6 @@ namespace CalculatorFront
             this.Minus.Name = "Minus";
             this.Minus.Size = new System.Drawing.Size(50, 60);
             this.Minus.TabIndex = 16;
-            this.Minus.Tag = "\"-\"";
             this.Minus.Text = "-";
             this.Minus.UseVisualStyleBackColor = true;
             this.Minus.Click += new System.EventHandler(this.ButtonClick);
@@ -136,7 +130,6 @@ namespace CalculatorFront
             this.Equal.Name = "Equal";
             this.Equal.Size = new System.Drawing.Size(50, 60);
             this.Equal.TabIndex = 17;
-            this.Equal.Tag = "\"=\"";
             this.Equal.Text = "=";
             this.Equal.UseVisualStyleBackColor = true;
             this.Equal.Click += new System.EventHandler(this.ButtonClick);
@@ -172,7 +165,6 @@ namespace CalculatorFront
             this.ClearEntry.Name = "ClearEntry";
             this.ClearEntry.Size = new System.Drawing.Size(50, 60);
             this.ClearEntry.TabIndex = 20;
-            this.ClearEntry.Tag = "\"CE\"";
             this.ClearEntry.Text = "CE";
             this.ClearEntry.UseVisualStyleBackColor = true;
             this.ClearEntry.Click += new System.EventHandler(this.ButtonClick);
@@ -184,7 +176,6 @@ namespace CalculatorFront
             this.Plus.Name = "Plus";
             this.Plus.Size = new System.Drawing.Size(50, 60);
             this.Plus.TabIndex = 15;
-            this.Plus.Tag = "\"+\"";
             this.Plus.Text = "+";
             this.Plus.UseVisualStyleBackColor = true;
             this.Plus.Click += new System.EventHandler(this.ButtonClick);
@@ -196,7 +187,6 @@ namespace CalculatorFront
             this.Seven.Name = "Seven";
             this.Seven.Size = new System.Drawing.Size(50, 60);
             this.Seven.TabIndex = 10;
-            this.Seven.Tag = "7";
             this.Seven.Text = "7";
             this.Seven.UseVisualStyleBackColor = true;
             this.Seven.Click += new System.EventHandler(this.ButtonClick);
@@ -208,7 +198,6 @@ namespace CalculatorFront
             this.Eight.Name = "Eight";
             this.Eight.Size = new System.Drawing.Size(50, 60);
             this.Eight.TabIndex = 9;
-            this.Eight.Tag = "8";
             this.Eight.Text = "8";
             this.Eight.UseVisualStyleBackColor = true;
             this.Eight.Click += new System.EventHandler(this.ButtonClick);
@@ -220,7 +209,6 @@ namespace CalculatorFront
             this.Nine.Name = "Nine";
             this.Nine.Size = new System.Drawing.Size(50, 60);
             this.Nine.TabIndex = 8;
-            this.Nine.Tag = "9";
             this.Nine.Text = "9";
             this.Nine.UseVisualStyleBackColor = true;
             this.Nine.Click += new System.EventHandler(this.ButtonClick);
@@ -232,7 +220,6 @@ namespace CalculatorFront
             this.Four.Name = "Four";
             this.Four.Size = new System.Drawing.Size(50, 60);
             this.Four.TabIndex = 7;
-            this.Four.Tag = "4";
             this.Four.Text = "4";
             this.Four.UseVisualStyleBackColor = true;
             this.Four.Click += new System.EventHandler(this.ButtonClick);
@@ -244,7 +231,6 @@ namespace CalculatorFront
             this.Five.Name = "Five";
             this.Five.Size = new System.Drawing.Size(50, 60);
             this.Five.TabIndex = 6;
-            this.Five.Tag = "5";
             this.Five.Text = "5";
             this.Five.UseVisualStyleBackColor = true;
             this.Five.Click += new System.EventHandler(this.ButtonClick);
@@ -256,7 +242,6 @@ namespace CalculatorFront
             this.Six.Name = "Six";
             this.Six.Size = new System.Drawing.Size(50, 60);
             this.Six.TabIndex = 5;
-            this.Six.Tag = "6";
             this.Six.Text = "6";
             this.Six.UseVisualStyleBackColor = true;
             this.Six.Click += new System.EventHandler(this.ButtonClick);
@@ -268,7 +253,6 @@ namespace CalculatorFront
             this.Three.Name = "Three";
             this.Three.Size = new System.Drawing.Size(50, 60);
             this.Three.TabIndex = 3;
-            this.Three.Tag = "3";
             this.Three.Text = "3";
             this.Three.UseVisualStyleBackColor = true;
             this.Three.Click += new System.EventHandler(this.ButtonClick);
@@ -280,7 +264,6 @@ namespace CalculatorFront
             this.Two.Name = "Two";
             this.Two.Size = new System.Drawing.Size(50, 60);
             this.Two.TabIndex = 2;
-            this.Two.Tag = "2";
             this.Two.Text = "2";
             this.Two.UseVisualStyleBackColor = true;
             this.Two.Click += new System.EventHandler(this.ButtonClick);
@@ -292,7 +275,6 @@ namespace CalculatorFront
             this.Zero.Name = "Zero";
             this.Zero.Size = new System.Drawing.Size(120, 60);
             this.Zero.TabIndex = 1;
-            this.Zero.Tag = "0";
             this.Zero.Text = "0";
             this.Zero.UseVisualStyleBackColor = true;
             this.Zero.Click += new System.EventHandler(this.ButtonClick);
@@ -304,7 +286,6 @@ namespace CalculatorFront
             this.One.Name = "One";
             this.One.Size = new System.Drawing.Size(50, 60);
             this.One.TabIndex = 0;
-            this.One.Tag = "1";
             this.One.Text = "1";
             this.One.UseVisualStyleBackColor = true;
             this.One.Click += new System.EventHandler(this.ButtonClick);
@@ -316,7 +297,6 @@ namespace CalculatorFront
             this.SqrtButton.Name = "SqrtButton";
             this.SqrtButton.Size = new System.Drawing.Size(50, 60);
             this.SqrtButton.TabIndex = 21;
-            this.SqrtButton.Tag = "\"√\"";
             this.SqrtButton.Text = "√";
             this.SqrtButton.UseVisualStyleBackColor = true;
             this.SqrtButton.Click += new System.EventHandler(this.ButtonClick);
@@ -328,7 +308,6 @@ namespace CalculatorFront
             this.LeftParenthesis.Name = "LeftParenthesis";
             this.LeftParenthesis.Size = new System.Drawing.Size(50, 60);
             this.LeftParenthesis.TabIndex = 22;
-            this.LeftParenthesis.Tag = "\"(\"";
             this.LeftParenthesis.Text = "(";
             this.LeftParenthesis.UseVisualStyleBackColor = true;
             this.LeftParenthesis.Click += new System.EventHandler(this.ButtonClick);
@@ -340,7 +319,6 @@ namespace CalculatorFront
             this.RightParenthesis.Name = "RightParenthesis";
             this.RightParenthesis.Size = new System.Drawing.Size(50, 60);
             this.RightParenthesis.TabIndex = 23;
-            this.RightParenthesis.Tag = "\")\"";
             this.RightParenthesis.Text = ")";
             this.RightParenthesis.UseVisualStyleBackColor = true;
             this.RightParenthesis.Click += new System.EventHandler(this.ButtonClick);

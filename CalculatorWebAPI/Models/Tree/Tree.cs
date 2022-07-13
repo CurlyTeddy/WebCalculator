@@ -2,51 +2,70 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Controllers.Models
+namespace CalculatorWebAPI.Models
 {
+    /// <summary>
+    /// The calculation tree class
+    /// </summary>
     public static class Tree
     {
+        /// <summary>
+        /// The method produces subtree that is rooted by operator
+        /// </summary>
+        /// <param name="subtreeHead">The stack stores the root of all subtrees</param>
+        /// <param name="operators">The stack stores all the operators</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void ProduceSubtree(Stack<TreeNode> subtreeHead, Stack<string> operators)
+        private static void ProduceSubtree(Stack<TreeNode> subtreeHead, Stack<(string, INode)> operators)
         {
-            TreeNode root = new TreeNode(operators.Pop());
-            root.RightChild = subtreeHead.Pop();
-            root.LeftChild = subtreeHead.Pop();
+            (string content, INode operation) = operators.Pop();
+            TreeNode root = new TreeNode(content, operation)
+            {
+                RightChild = subtreeHead.Pop(),
+                LeftChild = subtreeHead.Pop()
+            };
             subtreeHead.Push(root);
         }
 
+        /// <summary>
+        /// The method constructs the calculation tree
+        /// </summary>
+        /// <param name="answer">The argument specifies the working area to work with</param>
+        /// <returns>The root of the calculation tree</returns>
         public static TreeNode ConstructTree(Answer answer)
         {
             Stack<TreeNode> subtreeHead = new Stack<TreeNode>();
-            Stack<string> operators = new Stack<string>();
+            Stack<(string content, INode operation)> operators = new Stack<(string, INode)>();
 
             // The priority of "(" must be the lowest, in order not to process "(" when meets the first operator in the parenthesis
             Dictionary<string, int> priority = new Dictionary<string, int>() { { "(", 1 }, { Addition.Content, 2 }, { Substraction.Content, 2 }, { Multiplication.Content, 3 }, { Division.Content, 3 } };
 
-            foreach (string term in answer.AllTerm)
+            foreach ((string content, INode method) in answer.AllTerm)
             {
-                if (term == "(" || term == Sqrt.Content)
+                if (content == "(" || content == Sqrt.Content)
                 {
-                    operators.Push(term);
+                    operators.Push((content, method));
                 }
-                else if (term == ")")
+                else if (content == ")")
                 {
                     // Only priority ascending order left, so processes from right to left
-                    while (operators.Peek() != "(")
+                    while (operators.Peek().content != "(")
                     {
                         ProduceSubtree(subtreeHead, operators);
                     }
                     // Delete "("
                     operators.Pop();
                 }
-                else if (double.TryParse(term, out double dummy))
+                else if (double.TryParse(content, out double dummy))
                 {
                     // Check whether there's sqrt in front of the number
-                    subtreeHead.Push(new TreeNode(term));
-                    if (operators.Count != 0 && operators.Peek() == Sqrt.Content)
+                    subtreeHead.Push(new TreeNode(content, method));
+                    if (operators.Count != 0 && operators.Peek().content == Sqrt.Content)
                     {
-                        TreeNode root = new TreeNode(operators.Pop());
-                        root.LeftChild = subtreeHead.Pop();
+                        (string sqrt, INode sqrtOperation) = operators.Pop();
+                        TreeNode root = new TreeNode(sqrt, sqrtOperation)
+                        {
+                            LeftChild = subtreeHead.Pop()
+                        };
                         subtreeHead.Push(root);
                     }
                 }
@@ -55,17 +74,17 @@ namespace Controllers.Models
                     // The operator on the top of the stack might change
                     // so while loop is a must to ensure the operators with higher or same priority are processed
                     // This maintains the operations' priority in the stack is in ascending order
-                    while (operators.Count != 0 && priority[operators.Peek()] >= priority[term])
+                    while (operators.Count != 0 && priority[operators.Peek().content] >= priority[content])
                     {
                         ProduceSubtree(subtreeHead, operators);
                     }
-                    operators.Push(term);
+                    operators.Push((content, method));
                 }
             }
 
             // The operator and subtreeHead stack have following attributes after the for loop above executes
             // One is the operator stack is sort in non-strictly ascending priority order, two is the last operator won't be processed
-            while(operators.Count != 0)
+            while (operators.Count != 0)
             {
                 ProduceSubtree(subtreeHead, operators);
             }
@@ -73,6 +92,11 @@ namespace Controllers.Models
             return subtreeHead.Pop();
         }
 
+        /// <summary>
+        /// The method traversals the tree in preorder
+        /// </summary>
+        /// <param name="root">The root of the tree to traversal</param>
+        /// <param name="answer">The argument specifies the working area to work with</param>
         public static void PreorderTraversal(TreeNode root, Answer answer)
         {
             if (root == null)
@@ -85,6 +109,11 @@ namespace Controllers.Models
             PreorderTraversal(root.RightChild, answer);
         }
 
+        /// <summary>
+        /// The method traversals the tree in postorder
+        /// </summary>
+        /// <param name="root">The root of the tree to traversal</param>
+        /// <param name="answer">The argument specifies the working area to work with</param>
         public static void PostorderTraversal(TreeNode root, Answer answer)
         {
             if (root == null)
@@ -97,32 +126,21 @@ namespace Controllers.Models
             answer.PostorderEquation += root.Symbol;
         }
 
-        public static double CalculateTree(TreeNode root)
+        /// <summary>
+        /// The method calculates the result based on the tree
+        /// </summary>
+        /// <param name="root">The root of the tree to traversal</param>
+        /// <param name="answer">The argument specifies the working area to work with</param>
+        public static void CalculateTree(TreeNode root, Answer answer)
         {
-            if(root.LeftChild == null && root.RightChild == null)
+            if (root == null)
             {
-                return double.Parse(root.Symbol);
+                return;
             }
-            else if (root.Symbol == Addition.Content)
-            {
-                return CalculateTree(root.LeftChild) + CalculateTree(root.RightChild);
-            }
-            else if (root.Symbol == Substraction.Content)
-            {
-                return CalculateTree(root.LeftChild) - CalculateTree(root.RightChild);
-            }
-            else if (root.Symbol == Multiplication.Content)
-            {
-                return CalculateTree(root.LeftChild) * CalculateTree(root.RightChild);
-            }
-            else if (root.Symbol == Division.Content)
-            {
-                return CalculateTree(root.LeftChild) / CalculateTree(root.RightChild);
-            }
-            else
-            {
-                return Math.Sqrt(CalculateTree(root.LeftChild));
-            }
+
+            CalculateTree(root.LeftChild, answer);
+            CalculateTree(root.RightChild, answer);
+            root.Operation.Calculate(answer.CalculationStack);
         }
     }
 }

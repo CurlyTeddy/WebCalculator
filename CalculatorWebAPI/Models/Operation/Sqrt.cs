@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace Controllers.Models
+namespace CalculatorWebAPI.Models
 {
     /// <summary>
     /// The Sqrt button class
     /// </summary>
-    public class Sqrt : IButton
+    public class Sqrt : IButton, INode
     {
         /// <summary>
         /// The symbol of the button
@@ -22,19 +23,21 @@ namespace Controllers.Models
         }
 
         /// <summary>
-        /// The method makes the switch to sqrt mood
+        /// The method prepares all prerequisites for sqrt calculation
         /// </summary>
+        /// <param name="answer">The argument specifies the working area to work with</param>
         public void Execute(Answer answer)
         {
-            answer.UpdateWindow(Content);
+            answer.UpdateWindow(this, Content);
         }
-
+        
         /// <summary>
-        /// The method calculates the sqrt of a number
+        /// The caluculation interface for result computing
         /// </summary>
-        /// <param name="operand">The operand that is to be sqrted</param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Calculate(double operand) => Math.Sqrt(operand);
+        /// <param name="storage">The auxiliary data structure to calculate result</param>
+        public void Calculate(Stack<double> storage)
+        {
+            storage.Push(Math.Sqrt(storage.Pop()));
+        }
     }
 }

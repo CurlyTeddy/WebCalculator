@@ -1,13 +1,16 @@
 ﻿using System.Collections.Generic;
 
-namespace Controllers.Models
+namespace CalculatorWebAPI.Models
 {
+    /// <summary>
+    /// The class of working area
+    /// </summary>
     public class Answer
     {
         /// <summary>
-        /// The List of operands
+        /// The List of all the terms in the equation
         /// </summary>
-        public List<string> AllTerm { get; set; }
+        public List<(string, INode)> AllTerm { get; set; }
 
         /// <summary>
         /// The value behinds the last operator
@@ -35,7 +38,12 @@ namespace Controllers.Models
         public string PostorderEquation { get; set; }
 
         /// <summary>
-        /// The answer of the equation
+        /// The auxiliary stack for calculation process
+        /// </summary>
+        public Stack<double> CalculationStack { get; set; }
+
+        /// <summary>
+        /// The result of the calculation
         /// </summary>
         public string Result { get; set; }
 
@@ -44,14 +52,20 @@ namespace Controllers.Models
         /// </summary>
         public Answer()
         {
-            AllTerm = new List<string>();
+            AllTerm = new List<(string, INode)>();
             CurrentValue = "";
             CurrentEquation = "";
+            CalculationStack = new Stack<double>();
         }
 
-        public void UpdateWindow(string content)
+        /// <summary>
+        /// The method that adds number to the list and updates the user interface
+        /// </summary>
+        /// <param name="operation">The interface containing calculation method</param>
+        /// <param name="content">The content to show on the user interface</param>
+        public void UpdateWindow(INode operation, string content)
         {
-            AllTerm.Add(content);
+            AllTerm.Add((content, operation));
             CurrentEquation += content;
             NextNumberStart = CurrentEquation.Length;
         }

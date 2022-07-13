@@ -1,4 +1,4 @@
-﻿namespace Controllers.Models
+﻿namespace CalculatorWebAPI.Models
 {
     /// <summary>
     /// The dot button class
@@ -21,6 +21,7 @@
         /// <summary>
         /// The method adds a dot to current value and displayed equation
         /// </summary>
+        /// <param name="answer">The argument specifies the working area to work with</param>
         public void Execute(Answer answer)
         {
             answer.CurrentEquation += Content;

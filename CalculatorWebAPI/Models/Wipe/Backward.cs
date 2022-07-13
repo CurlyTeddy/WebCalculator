@@ -2,7 +2,7 @@
 using System.Net;
 using System.Web.Http;
 
-namespace Controllers.Models
+namespace CalculatorWebAPI.Models
 {
     /// <summary>
     /// The backspace class

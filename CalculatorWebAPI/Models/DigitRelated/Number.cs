@@ -1,9 +1,11 @@
-﻿namespace Controllers.Models
+﻿using System.Collections.Generic;
+
+namespace CalculatorWebAPI.Models
 {
     /// <summary>
     /// The class of number buttons
     /// </summary>
-    public class Number : IButton
+    public class Number : IButton, INode
     {
         /// <summary>
         /// The content of the button
@@ -22,15 +24,20 @@
         /// <summary>
         /// The methods set the current number and the equation
         /// </summary>
+        /// <param name="answer">The argument specifies the working area to work with</param>
         public void Execute(Answer answer)
         {
             answer.CurrentValue += Content;
             answer.CurrentEquation = answer.CurrentEquation.Substring(0, answer.NextNumberStart) + answer.CurrentValue;
         }
 
-        public static void NumberOperation(string nodeSymbol)
+        /// <summary>
+        /// The caluculation interface for result computing
+        /// </summary>
+        /// <param name="storage">The auxiliary data structure to calculate result</param>
+        public void Calculate(Stack<double> storage)
         {
-            double number = double.Parse(nodeSymbol);
+            storage.Push(double.Parse(Content));
         }
     }
 }

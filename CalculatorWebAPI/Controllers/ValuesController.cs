@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using Controllers.Models;
+using CalculatorWebAPI.Models;
 using Newtonsoft.Json.Linq;
 
 namespace CalculatorWebAPI.Controllers
@@ -23,14 +23,15 @@ namespace CalculatorWebAPI.Controllers
         public JObject Post([FromBody] JObject value)
         {
             string symbol = value["button"].ToString();
-            int identifier = (int)value["ID"];
-            if (!GlobalVariables.IdentifierMap.TryGetValue(identifier, out Answer target))
+            int? token = (int?)value["ID"];
+            if (value["ID"].ToString() == "")
             {
-                target = new Answer();
-                GlobalVariables.IdentifierMap.Add(identifier, target);
+                token = GlobalVariables.Token[GlobalVariables.UserNumber++];
+                GlobalVariables.IdentifierMap.Add(token, new Answer());
             }
 
-            if (double.TryParse(symbol, out double dummy))
+            Answer target = GlobalVariables.IdentifierMap[token];
+            if (int.TryParse(symbol, out int dummy))
             {
                 new Number(symbol).Execute(target);
             }
@@ -39,7 +40,8 @@ namespace CalculatorWebAPI.Controllers
                 GlobalVariables.ButtonMap[symbol].Execute(target);
             }
 
-            return JObject.Parse($"{{ \"CurrentEquation\": \"{target.CurrentEquation}\", \"Result\": \"{target.Result}\" }}");
+            // Double quotes are required to represent strings in Json
+            return JObject.Parse($"{{ \"Token\": {token}, \"CurrentEquation\": \"{target.CurrentEquation}\", \"Result\": \"{target.Result}\" }}");
         }
 
         // PUT api/values/5

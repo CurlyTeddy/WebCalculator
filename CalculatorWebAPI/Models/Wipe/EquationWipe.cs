@@ -1,4 +1,4 @@
-﻿namespace Controllers.Models
+﻿namespace CalculatorWebAPI.Models
 {
     /// <summary>
     /// The class of clear entry button

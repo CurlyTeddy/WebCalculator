@@ -24,15 +24,21 @@ namespace CalculatorFront
             // Not necessary to add header
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             uri = new Uri("http://localhost:58001/api/values");
-            identifier = new Random(Guid.NewGuid().GetHashCode()).Next();
         }
 
         private async void ButtonClick(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            request = new HttpRequestMessage(new HttpMethod("Post"), uri);
-            // Specification of encoding and media type is necessary
-            request.Content = new StringContent($"{{ \"button\": {button.Tag.ToString()}, \"ID\": {identifier} }}", Encoding.UTF8, "application/json");
+            JObject JsonContent = new JObject
+            {
+                { "button", button.Text.ToString() },
+                { "ID", new JValue(identifier) }
+            };
+            request = new HttpRequestMessage(new HttpMethod("Post"), uri)
+            {
+                // Specification of encoding and media type is necessary
+                Content = new StringContent(JsonConvert.SerializeObject(JsonContent), Encoding.UTF8, "application/json")
+            };
             response = await client.SendAsync(request);
             Stream stream = await response.Content.ReadAsStreamAsync();
             
@@ -44,6 +50,7 @@ namespace CalculatorFront
                     {
                         JsonSerializer JsonParser = new JsonSerializer();
                         JObject result = (JObject)JsonParser.Deserialize(Json);
+                        identifier = (int)result["Token"];
                         Equation.Text = result["CurrentEquation"].ToString();
                         Result.Text = result["Result"].ToString();
                     }

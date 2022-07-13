@@ -1,4 +1,4 @@
-﻿namespace Controllers.Models
+﻿namespace CalculatorWebAPI.Models
 {
     /// <summary>
     /// The class of equal button
@@ -19,17 +19,22 @@
         }
 
         /// <summary>
-        /// The function of the button
+        /// The function of the equal button
         /// </summary>
+        /// <param name="answer">The argument specifies the working area to work with</param>
         public void Execute(Answer answer)
         {
-            answer.AllTerm.Add(answer.CurrentValue);
+            // Pushes the last number to the list
+            answer.AllTerm.Add((answer.CurrentValue, new Number(answer.CurrentValue)));
+            // Compute process
             TreeNode root = Tree.ConstructTree(answer);
             Tree.PreorderTraversal(root, answer);
             Tree.PostorderTraversal(root, answer);
+            Tree.CalculateTree(root, answer);
+            // Updates the user interface
             answer.CurrentEquation += $"\r\n{answer.PreorderEquation}\r\n{answer.PostorderEquation}";
-            answer.Result = Tree.CalculateTree(root).ToString();
-
+            answer.Result = answer.CalculationStack.Pop().ToString();
+            // Clears data structure
             answer.Reset();
         }
     }

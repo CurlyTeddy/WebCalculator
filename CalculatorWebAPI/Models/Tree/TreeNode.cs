@@ -1,4 +1,4 @@
-﻿namespace Controllers.Models
+﻿namespace CalculatorWebAPI.Models
 {
     /// <summary>
     /// The tree node class
@@ -21,12 +21,19 @@
         public TreeNode RightChild { get; set; }
 
         /// <summary>
+        /// The interface containing the calculate method
+        /// </summary>
+        public INode Operation { get; }
+
+        /// <summary>
         /// The constructor set the value of the node
         /// </summary>
         /// <param name="content">The term in the equation</param>
-        public TreeNode(string content)
+        /// <param name="operation">The interface containing the calculate method</param>
+        public TreeNode(string content, INode operation)
         {
             Symbol = content;
+            Operation = operation;
         }
     }
 }
